@@ -726,6 +726,7 @@ function agregarFav(lib,total){
     document.getElementById('cap').value=1;
     document.getElementById('vers').value=1;
     document.getElementById('nota').value='';
+    document.getElementById('versiculoBuscado').innerText='';
     const modalPlayers = new bootstrap.Modal("#favs");
     modalPlayers.show();
 }
@@ -764,7 +765,29 @@ async function guardarFav(){
     console.log('lib',lib);
 
 }
-
+async function buscarCita(){
+    document.getElementById('cargando').classList.toggle('visually-hidden');
+    let libro=document.getElementById('libro').innerText
+    let cap=document.getElementById('cap').value
+    let vers=document.getElementById('vers').value
+    let versiculo= await getCita(libro,cap,vers);
+    let ver ='';
+    
+    if(versiculo){
+        
+        if(Array.isArray(versiculo)){
+            versiculo.forEach(v=>{
+                ver+=ver.length?(" "+v.number+" ."+v.verse):(v.number+" ."+v.verse)
+            })
+        }else{
+            ver=versiculo.number+". "+versiculo.verse;
+        }
+        document.getElementById('versiculoBuscado').innerText=ver;
+        document.getElementById('cargando').classList.toggle('visually-hidden');
+    }
+    
+    
+}
 async function getCita(libro,cap,vers){
     console.log('endpoint',"https://bible-api.deno.dev/api/read/rv1960/"+libro+"/"+cap+"/"+vers);
     const resp = await fetch("https://bible-api.deno.dev/api/read/rv1960/"+libro+"/"+cap+"/"+vers);
@@ -790,6 +813,8 @@ function getFavs(l){
                     <p>${c.detalle}</p>
                     <b>${c.cita}</b>
                     <p>Nota: <i>${c.nota}</i></p>
+                    <button class="btn btn-primary" onclick="editar('${lf.nombre}','${c.cita}')"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-danger" onclick="eliminar('${lf.nombre}','${c.cita}')"><i class="bi bi-trash"></i></button>
                 </div>
             </div>`
         })
@@ -797,7 +822,43 @@ function getFavs(l){
     }
     document.getElementById('vfavs').innerHTML=ret;
 }
-
+let libroEdit='';
+let citaEdit='';
+let notaEdit='';
+function editar(l,c){
+    console.log(l,c);
+    libroEdit=l;
+    citaEdit=c;
+    let lib = books.find(b=>b.nombre==l);
+    let favs= lib.favoritos;
+    let edit=favs.find(f=>f.cita==c);
+    document.getElementById('vv').innerText=edit.detalle;
+    document.getElementById('cc').innerText= edit.cita;
+    document.getElementById('notaEdit').value=edit.nota;
+    const toastBootstrap = bootstrap.Modal.getInstance("#editFavsModal");
+    toastBootstrap.show()
+}
+function editFav(){
+    let lib = books.find(b=>b.nombre==libroEdit);
+    let favs= lib.favoritos;
+    let edit=favs.find(f=>f.cita==citaEdit);
+    let note = document.getElementById('notaEdit').value;
+    edit.nota=note;
+    const toastBootstrap = bootstrap.Modal.getInstance("#editFavsModal");
+    toastBootstrap.hide()
+    getFavs(libroEdit);
+    saveAll()
+}
+function eliminar(l,c){
+    console.log(l,c);
+    let lib = books.find(b=>b.nombre==l);
+    let favs= lib.favoritos;
+    let del=favs.filter(f=>f.cita!=c);
+    lib.favoritos=del;
+    console.log(lib);
+    getFavs(l);
+    saveAll();
+}
 function showFavs(l){
     document.getElementById('flib').innerText=l;
     console.log('entramos')
@@ -808,6 +869,7 @@ function showFavs(l){
 }
 const m1 = new bootstrap.Modal('#showFavsModal');
 const m2 = new bootstrap.Modal('#favs');
+const m4 = new bootstrap.Modal('#editFavsModal');
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 getBooksRead();

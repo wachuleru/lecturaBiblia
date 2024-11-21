@@ -11,6 +11,14 @@
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -71,17 +79,28 @@
         
         
     </div>
-    <div class="modal fade" id="favs" tabindex="-1" aria-labelledby="favsLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="favs" tabindex="-1" aria-labelledby="favsLabel" aria-hidden="true" >
+        <div class="modal-dialog " style="width: 500px !important">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="favsLabel">Agregar Versiculo Favorito</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label id="libro"></label>    
-                <input type="number" name="cap" id="cap" >:
-                <input type="text" name="vers" id="vers" >
+              <div class="row">
+                <div class="col-3"><b id="libro" class="align-items-center text-center"></b> </div>
+                <div class="col-3"><input type="number" name="cap" id="cap" class="form-control"></div>
+                <div class="col-1">:</div>
+                <div class="col-3"><input type="text" name="vers" id="vers" class="form-control"></div>
+                <div class="col-1"><button class="btn btn-primary" onclick="buscarCita()"><i class="bi bi-search"></i></button></div>
+              </div>
+                
+                
+                <br>
+                <div id="cargando" class="spinner-border text-center text-primary visually-hidden" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <p id="versiculoBuscado"></p>
                 <br>
                 <label for="nota">Nota:</label>
                 <textarea name="nota" id="nota" class="form-control"></textarea>
@@ -103,14 +122,7 @@
             </div>
             <div class="modal-body">
                <div class="row" id="vfavs">
-                <div class="card">
-                    <div class="card-body">
-                        <p></p>
-                        <b  data-bs-toggle="tooltip" data-bs-placement="top"
-            data-bs-custom-class="custom-tooltip"
-            data-bs-title=" ">d</b>
-                    </div>
-                </div>
+                
                </div> 
             </div>
             <div class="modal-footer">
@@ -119,6 +131,29 @@
           </div>
         </div>
     </div>
+
+    <div class="modal fade" id="editFavsModal" tabindex="-1" aria-labelledby="editFavsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editFavsModalLabel">Editar cita<b id="flib"></b></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+             <div class="row" >
+              <p id="vv"></p>
+              <b id="cc"></b>
+              <label for="notaEdit"></label>
+              <textarea name="notaEdit" id="notaEdit"></textarea>
+             </div> 
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" onclick="editFav()">Guardar</button>
+            </div>
+          </div>
+      </div>
+  </div>
     <script src="js/actions.js"></script>
 </body>
 </html>

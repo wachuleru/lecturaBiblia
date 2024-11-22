@@ -867,9 +867,33 @@ function showFavs(l){
     const toastBootstrap = bootstrap.Modal.getInstance("#showFavsModal");
     toastBootstrap.show()
 }
+
+function getAllFavs(){
+    let favoritos = [];
+    books.forEach(f=>{
+        favoritos.push(...f.favoritos)
+    })
+    let sf= ``;
+    favoritos.forEach(f=>{
+        sf+=`
+            
+            <div class="card cardF">
+                <div class="card-body">
+                    <p class="card-text">${f.detalle}</p>
+                    <b class="card-text">${f.cita}</b>
+                    <p class="card-text">Nota: <i>${f.nota}</i></p>
+                </div>
+            </div>`;
+    })
+    console.log('favs',favoritos);
+    document.getElementById('favoritos').innerHTML=sf;
+    const toastBootstrap = bootstrap.Modal.getInstance("#allFavs");
+    toastBootstrap.show()
+}
 const m1 = new bootstrap.Modal('#showFavsModal');
 const m2 = new bootstrap.Modal('#favs');
 const m4 = new bootstrap.Modal('#editFavsModal');
+const m3 = new bootstrap.Modal('#allFavs');
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 getBooksRead();

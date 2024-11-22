@@ -439,7 +439,7 @@ function getBooksRead(){
     let checkBoxNT = ``;
     books.forEach(element => {
         let lib= `
-            <div class="col-2 mt-2 mb-2">
+            <div class="col-sm-6 col-md-auto col-lg-auto mt-2 mb-2">
                 <div class="card">
                     <div class="card-header">${element.nombre}</div>
                     <input type="range" class="form-range" min="0" max="${element.total}" value="${element.leidos}" step="1" id="${element.nombre}" onchange="updateTextInput('${element.nombre}',this.value,${element.total});">

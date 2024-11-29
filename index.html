@@ -17,22 +17,12 @@
     />
     
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-      /* Masonry puro con CSS */
-      .masonry {
-        column-count: 3; /* Número de columnas */
-        column-gap: 1rem; /* Espacio entre columnas */
-    }
-    .masonry .card {
-        display: inline-block; /* Asegura que las tarjetas sean bloques dentro de las columnas */
-        margin-bottom: 1rem; /* Espacio entre tarjetas */
-    }
-    </style>
+   
 </head>
 <body>
     <div class="container-fluid m-0 p-0">
         <div class="row m-0 ">
-            <div class="col-md-3 bg-dark text-white m-0" style="min-height: 100vh;height:100%">
+            <div class="col-md-3 bg-dark text-white m-0 sidebar" >
                 
                 <div class="row mb-3">
                     <div class="col" id="avance">
@@ -144,6 +134,24 @@
           </div>
         </div>
     </div>
+    <div class="modal fade" id="allFavs" tabindex="-1" aria-labelledby="allFavsLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-scrollable" style="min-width:80vw">
+        <div class="modal-content" style="min-width:80vw">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="allFavsLabel">Citas Favoritas</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+             <div id="favoritos" class="masonry">
+              
+             </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+      </div>
+    </div>
     <div class="modal fade" id="editFavsModal" tabindex="-1" aria-labelledby="editFavsModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -166,24 +174,7 @@
           </div>
       </div>
     </div>
-    <div class="modal fade" id="allFavs" tabindex="-1" aria-labelledby="allFavsLabel" aria-hidden="true">
-      <div class="modal-dialog  modal-dialog-scrollable" style="min-width:80vw">
-        <div class="modal-content" style="min-width:80vw">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="allFavsLabel">Citas Favoritas</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-             <div id="favoritos" class="masonry">
-              
-             </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-      </div>
-    </div>
+    
     <script src="js/actions.js"></script>
     
 </body>

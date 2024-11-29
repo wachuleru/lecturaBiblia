@@ -875,6 +875,8 @@ function getAllFavs(){
     })
     let sf= ``;
     favoritos.forEach(f=>{
+        let aux = f.cita.split(" ");
+        let l = aux[0];
         sf+=`
             
             <div class="card cardF">
@@ -882,6 +884,8 @@ function getAllFavs(){
                     <p class="card-text">${f.detalle}</p>
                     <b class="card-text">${f.cita}</b>
                     <p class="card-text">Nota: <i>${f.nota}</i></p>
+                    <button class="btn btn-primary" onclick="editar('${l}','${f.cita}')"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-danger" onclick="eliminar('${l}','${f.cita}')"><i class="bi bi-trash"></i></button>
                 </div>
             </div>`;
     })

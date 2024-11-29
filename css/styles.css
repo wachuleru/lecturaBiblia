@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-    background-color: #c0c0c0 !important;
+    min-height: 100vh;height:100%;
 }
 .cardF{
     border-radius: 4px;
@@ -28,6 +28,15 @@
 .card {
     break-inside: avoid; /* Evitar cortes en el diseño */
 }
+/* Masonry puro con CSS */
+.masonry {
+    column-count: 3; /* Número de columnas */
+    column-gap: 1rem; /* Espacio entre columnas */
+}
+.masonry .card {
+    display: inline-block; /* Asegura que las tarjetas sean bloques dentro de las columnas */
+    margin-bottom: 1rem; /* Espacio entre tarjetas */
+}
 @media (max-width: 768px) {
     .masonry {
         column-count: 2; /* 2 columnas en pantallas medianas */
@@ -36,5 +45,13 @@
 @media (max-width: 576px) {
     .masonry {
         column-count: 1; /* 1 columna en pantallas pequeñas */
+    }
+    .sidebar{
+        height:fit-content ;
+        min-height: auto;
+        padding-bottom: 2rem;
+    }
+    #accordionExample{
+        padding-top: 2rem;
     }
 }

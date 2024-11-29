@@ -39,7 +39,7 @@
 }
 @media (max-width: 768px) {
     .masonry {
-        column-count: 2; /* 2 columnas en pantallas medianas */
+        column-count: 3; /* 2 columnas en pantallas medianas */
     }
 }
 @media (max-width: 576px) {
